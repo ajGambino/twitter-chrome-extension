@@ -1,3 +1,1 @@
-chrome.runtime.sendMessage({ action: 'resetCount' });
-
-chrome.runtime.sendMessage({ count: 1 });
+chrome.runtime.sendMessage({ action: 'incrementCount' });
