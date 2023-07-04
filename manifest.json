@@ -1,26 +1,24 @@
 {
-    "manifest_version": 2,
+    "manifest_version": 3,
     "name": "Tweet Counter",
     "version": "1.0",
-    "permissions": ["tabs"],
-    "browser_action": {
-      "default_popup": "popup.html"
+    "permissions": ["scripting", "activeTab", "storage", "declarativeContent"],
+    "action": {
+      "default_popup": "popup.html",
+      "default_icon": {
+        "16": "icon_sm.png",
+        "48": "icon.png",
+        "128": "icon_lg.png"
+      }
     },
     "background": {
-      "scripts": ["background.js"],
-      "persistent": false
+      "service_worker": "background.js"
     },
     "content_scripts": [
       {
         "matches": ["https://twitter.com/*"],
         "js": ["content.js"]
       }
-    ],
-    "icons": {
-      "16": "icon_sm.png",
-      "48": "icon.png",
-      "128": "icon_lg.png"
-    },
-    "web_accessible_resources": ["popup.html", "popup.js"]
+    ]
   }
   
