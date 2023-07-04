@@ -1,17 +1,13 @@
-chrome.runtime.onInstalled.addListener(function () {
-    chrome.storage.local.set({ count: 0 });
-});
-
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-    if (request.action === 'resetCount') {
-        chrome.storage.local.set({ count: 0 }, function () {
-            sendResponse({ success: true });
-        });
-    } else if (request.action === 'incrementCount') {
+    if (request.action === 'incrementCount') {
+        console.log('Background: Received incrementCount message');
         chrome.storage.local.get('count', function (result) {
             const newCount = result.count ? result.count + 1 : 1;
+            console.log('Background: Current count:', result.count);
+            console.log('Background: Updating count to', newCount);
             chrome.storage.local.set({ count: newCount }, function () {
-                sendResponse({ success: true, count: newCount });
+                console.log('Background: Count updated');
+                sendResponse({ success: true });
             });
         });
         return true; // Indicates that the response will be sent asynchronously

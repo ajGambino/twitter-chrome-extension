@@ -1,7 +1,9 @@
-// Send a message to the background script when a tweet is loaded
-function sendTweetViewedMessage() {
-    chrome.runtime.sendMessage({ action: 'incrementCount' });
-}
-
-// Listen for tweet load events and send a message
-document.addEventListener('DOMContentLoaded', sendTweetViewedMessage);
+chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+    if (request.action === 'incrementCount') {
+        console.log('Content: Received incrementCount message');
+        chrome.runtime.sendMessage({ action: 'incrementCount' }, function (response) {
+            console.log('Content: Sent incrementCount message to background');
+            sendResponse(response);
+        });
+    }
+});

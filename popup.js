@@ -1,12 +1,29 @@
-// Function to update the count element with the provided count value
 function updateCount(count) {
-    const countElement = document.getElementById('count');
-    if (countElement) {
-        countElement.textContent = count.toString();
+    console.log('Popup script loaded');
+    console.log('Updating count:', count);
+    const updateCountElement = () => {
+        const countElement = document.getElementById('count');
+        if (countElement) {
+            countElement.innerText = count.toString();
+        } else {
+            console.log('Count element not found');
+            // Retry after a short delay
+            setTimeout(updateCountElement, 100);
+        }
+    };
+
+    // Wait for the DOM to be fully loaded
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', updateCountElement);
     } else {
-        console.log('Count element not found');
+        updateCountElement();
     }
 }
+
+
+
+// Call the updateCount function immediately after defining it
+updateCount(0);
 
 // Wait for the DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', function () {
